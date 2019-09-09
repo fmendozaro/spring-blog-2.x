@@ -1,17 +1,31 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8" />
     <title>Title</title>
 </head>
 <body>
 <h1>Select an option you want the dice to roll</h1>
-<button>1</button>
-<button>2</button>
-<button>3</button>
-<button>4</button>
-<button>5</button>
-<button>6</button>
+
+
+<form method = "GET" action = "/roll-dice/1">
+    <input type = "submit" value = "1"/>
+</form>
+<form method = "GET" action = "/roll-dice/2">
+    <input type = "submit" value = "2"/>
+</form>
+<form method = "GET" action = "/roll-dice/3">
+    <input type = "submit" value = "3"/>
+</form>
+<form method = "GET" action = "/roll-dice/4">
+    <input type = "submit" value = "4"/>
+</form>
+<form method = "GET" action = "/roll-dice/5">
+    <input type = "submit" value = "5"/>
+</form>
+<form method = "GET" action = "/roll-dice/6">
+    <input type = "submit" value = "6"/>
+</form>
 
 
 </body>
