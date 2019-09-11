@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:replace="fragments/header :: main-header('Ads')" />
 </head>
 <body>
+<th:block th:replace="fragments/navbar :: top-nav" />
+
+<main class="container">
+
+    <div class="card-columns">
+        <div class="card ad" th:each="post : ${posts}">
+            <img th:src="@{'http://lorempixel.com/400/200/city?id=' + ${post.id}}" class="card-img-top" alt="..." />
+            <div class="card-body">
+                <h5 class="card-title" th:text="${post.title}"></h5>
+                <p class="card-text" th:text="${post.description}"></p>
+                <a th:href="@{/posts/{id}(id=${post.id})}" class="btn btn-primary">Show</a>
+                <a th:href="@{/posts/{id}/edit(id=${post.id})}" class="btn btn-warning">Edit</a>
+            </div>
+        </div>
+    </div>
+</main>
+
+<th:block th:replace="fragments/scripts :: scripts"></th:block>
 
 </body>
 </html>
