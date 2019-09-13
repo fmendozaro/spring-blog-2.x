@@ -1,7 +1,7 @@
 package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
-import com.codeup.springblog.models.Post;
+import org.springframework.security.core.context.SecurityContextHolder;
 import com.codeup.springblog.repos.PostRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +15,7 @@ public class PostController {
 
     private final PostRepository postDao;
 
-    public PostController(PostRepository postRepository){
+    public PostController(PostRepository postRepository ){
         postDao = postRepository;
     }
 
@@ -23,28 +23,28 @@ public class PostController {
     public String index(Model vModel) {
         Iterable<Post> posts = postDao.findAll();
         vModel.addAttribute("posts", posts);
-        return "ads/index";
+        return "posts/index";
     }
 
     @GetMapping("/posts/{id}")
     public String show(@PathVariable long id, Model viewModel) {
         Post post = postDao.findOne(id);
         viewModel.addAttribute("post", post);
-        return "ads/show";
+        return "posts/show";
     }
 
     @GetMapping("/posts/search")
     public String show(@RequestParam(name = "term") String term, Model viewModel) {
         List<Post> posts = postDao.searchByTitleLike(term);
         viewModel.addAttribute("posts", posts);
-        return "ads/index";
+        return "posts/index";
     }
 
     @GetMapping("/posts/{id}/edit")
     public String edit(@PathVariable long id, Model viewModel) {
         Post post = postDao.findOne(id);
         viewModel.addAttribute("post", post);
-        return "ads/edit";
+        return "posts/edit";
     }
 
     @PostMapping("/posts/{id}/edit")

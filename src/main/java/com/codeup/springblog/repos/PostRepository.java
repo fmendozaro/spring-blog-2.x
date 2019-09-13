@@ -11,11 +11,11 @@ import java.util.List;
 @Repository
 public interface PostRepository extends CrudRepository<Post, Long> {
     //    Query Methods
-    // select * from ads where title = ?
+    // select * from posts where title = ?
     Post findByTitle(String title);
 
     // HQL Custom Query
-    @Query("from Ad a where a.title like %:term%")
+    @Query("from Post p where p.title like %:term%")
     List<Post> searchByTitleLike(@Param("term") String term);
 
 }

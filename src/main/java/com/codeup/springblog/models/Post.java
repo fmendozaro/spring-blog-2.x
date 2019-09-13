@@ -18,17 +18,19 @@ public class Post {
     private User user;
 
     // This one does not create a column
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ad")
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name="posts_categories",
-            joinColumns={@JoinColumn(name="ad_id")},
+            joinColumns={@JoinColumn(name="post_id")},
             inverseJoinColumns={@JoinColumn(name="category_id")}
     )
     private List<PostCategory> categories;
 
+    public Post(){
 
+    }
 
     // Constructor for everything for the R of (CRUD)
     public Post(long id, String title, String description, List<PostCategory> categories) {
