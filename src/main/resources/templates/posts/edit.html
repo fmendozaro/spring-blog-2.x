@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:replace="fragments/header :: main-header('Ad')" />
+    <th:block th:replace="fragments/header :: main-header('Post')" />
 </head>
 <body>
 <th:block th:replace="fragments/navbar :: top-nav" />
@@ -14,7 +14,7 @@
         <button class="btn btn-warning">Edit</button>
     </form>
 
-    <form th:action="@{'/ads/' + ${post.id} + '/delete'}" method="post">
+    <form th:action="@{'/posts/' + ${post.id} + '/delete'}" method="post">
         <button class="btn btn-danger">Delete</button>
     </form>
 </main>

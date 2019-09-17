@@ -1,6 +1,10 @@
 package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
+import com.codeup.springblog.models.User;
+import com.codeup.springblog.repos.UserRepository;
+import com.codeup.springblog.services.EmailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import com.codeup.springblog.repos.PostRepository;
 import org.springframework.stereotype.Controller;
@@ -14,10 +18,16 @@ import java.util.List;
 public class PostController {
 
     private final PostRepository postDao;
+    private final UserRepository userDao;
 
-    public PostController(PostRepository postRepository ){
+    public PostController(PostRepository postRepository, UserRepository userRepository )
+    {
         postDao = postRepository;
+        userDao = userRepository;
     }
+
+    @Autowired
+    private EmailService emailService;
 
     @GetMapping("/posts")
     public String index(Model vModel) {
@@ -64,16 +74,26 @@ public class PostController {
         postDao.delete(id);
         return "redirect:/posts";
     }
-//    @GetMapping("/posts/create")
-//    @ResponseBody
-//    public String createPostForm() {
-//        return "Please fill out this form";
-//    }
-//
-////    POST	/posts/create	create a new post
-//    @PostMapping("/posts/create")
-//    @ResponseBody
-//    public String createPost() {
-//        return "Great new Post";
-//    }
+    @GetMapping("/posts/create")
+    public String showCreateForm(Model model) {
+        model.addAttribute("post", new Post());
+        return "posts/create";
+    }
+
+    @PostMapping("/posts/create")
+    public String createAd(
+            @ModelAttribute Post postPassedIn
+    ) {
+        User userSession = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        User userDB = userDao.findOne(userSession.getId());
+        postPassedIn.setUser(userDB);
+
+        Post savedPost = postDao.save(postPassedIn);
+        emailService.prepareAndSend(
+                savedPost,
+                "Post created",
+                String.format("Post with the id %d has been created", savedPost.getId()));
+        return "redirect:/posts/" + savedPost.getId();
+    }
 }

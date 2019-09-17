@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:replace="fragments/header :: main-header('Ads')" />
+    <th:block th:replace="fragments/header :: main-header('Posts')" />
 </head>
 <body>
 <th:block th:replace="fragments/navbar :: top-nav" />
@@ -10,7 +10,7 @@
 
     <div class="card-columns">
         <div class="card ad" th:each="post : ${posts}">
-            <img th:src="@{'http://lorempixel.com/400/200/city?id=' + ${post.id}}" class="card-img-top" alt="..." />
+<!--            <img th:src="@{'http://lorempixel.com/400/200/city?id=' + ${post.id}}" class="card-img-top" alt="..." />-->
             <div class="card-body">
                 <h5 class="card-title" th:text="${post.title}"></h5>
                 <p class="card-text" th:text="${post.description}"></p>

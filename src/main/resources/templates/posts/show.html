@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <th:block th:replace="fragments/header :: main-header('Ad')" />
 </head>
 <body>
+<th:block th:replace="fragments/navbar :: top-nav" />
+
+<main class="container">
+    <div class="card">
+        <h1 class="card-title" th:text="${post.title}" />
+        <p class="card-text" th:text="${post.description}" />
+        <a href="#" th:text="${post.user.email}"></a>
+    </div>
+</main>
+
+<th:block th:replace="fragments/scripts :: scripts"></th:block>
 
 </body>
 </html>

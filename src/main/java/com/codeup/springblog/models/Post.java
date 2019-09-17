@@ -1,17 +1,24 @@
 package com.codeup.springblog.models;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
 @Table(name = "posts")
 public class Post {
 
+
     @Id @GeneratedValue
     private long id;
-    @Column(nullable = false, length = 100)
-    private String title;
     @Column(nullable = false)
+    @NotBlank(message = "Posts must have a title")
+    private String title;
+    @Size(min = 3, message = "A title must be at least 3 characters.")
+    @NotBlank(message = "Posts must have a description")
+    @Column(nullable = false, length = 100)
     private String description;
 
     @OneToOne
