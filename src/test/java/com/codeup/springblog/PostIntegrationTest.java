@@ -1,5 +1,6 @@
 package com.codeup.springblog;
 
+import com.codeup.springblog.models.Post;
 import com.codeup.springblog.models.User;
 import com.codeup.springblog.repos.PostRepository;
 import com.codeup.springblog.repos.UserRepository;
@@ -17,11 +18,12 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import javax.servlet.http.HttpSession;
 
+import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = SpringblogApplication.class)
@@ -87,5 +89,28 @@ public class PostIntegrationTest {
         .param("title", "test")
         .param("body", "test for sale"))
         .andExpect(status().is3xxRedirection());
+    }
+
+    @Test
+    public void testShowPost() throws Exception {
+
+        Post existingPost = postDao.findAll().get(0);
+
+        this.mvc.perform(get("/posts/" + existingPost.getId()))
+                .andExpect(status().isOk())
+                // Test the dynamic content of the page
+                .andExpect(content().string(containsString(existingPost.getBody())));
+    }
+
+    @Test
+    public void testAdsIndex() throws Exception {
+        Post existingPost = postDao.findAll().get(0);
+
+        this.mvc.perform(get("/posts"))
+                .andExpect(status().isOk())
+                // Test the static content of the page
+                .andExpect(content().string(containsString("Latest Posts")))
+                // Test the dynamic content of the page
+                .andExpect(content().string(containsString(existingPost.getTitle())));
     }
 }
