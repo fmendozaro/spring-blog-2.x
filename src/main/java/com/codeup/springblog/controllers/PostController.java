@@ -38,7 +38,7 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String show(@PathVariable long id, Model viewModel) {
-        Post post = postDao.findOne(id);
+        Post post = postDao.getOne(id);
         viewModel.addAttribute("post", post);
         return "posts/show";
     }
@@ -52,7 +52,7 @@ public class PostController {
 
     @GetMapping("/posts/{id}/edit")
     public String edit(@PathVariable long id, Model viewModel) {
-        Post post = postDao.findOne(id);
+        Post post = postDao.getOne(id);
         viewModel.addAttribute("post", post);
         return "posts/edit";
     }
@@ -62,7 +62,7 @@ public class PostController {
                          @RequestParam(name = "title") String title,
                          @RequestParam(name = "description") String description,
                          Model viewModel) {
-        Post postToBeUpdated = postDao.findOne(id);
+        Post postToBeUpdated = postDao.getOne(id);
         postToBeUpdated.setTitle(title);
         postToBeUpdated.setDescription(description);
         postDao.save(postToBeUpdated);
@@ -71,7 +71,7 @@ public class PostController {
 
     @PostMapping("/posts/{id}/delete")
     public String delete(@PathVariable long id){
-        postDao.delete(id);
+        postDao.deleteById(id);
         return "redirect:/posts";
     }
     @GetMapping("/posts/create")
@@ -86,7 +86,7 @@ public class PostController {
     ) {
         User userSession = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        User userDB = userDao.findOne(userSession.getId());
+        User userDB = userDao.getOne(userSession.getId());
         postPassedIn.setUser(userDB);
 
         Post savedPost = postDao.save(postPassedIn);

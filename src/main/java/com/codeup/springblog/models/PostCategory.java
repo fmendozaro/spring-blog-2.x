@@ -8,7 +8,7 @@ import java.util.List;
 @Table(name="categories")
 public class PostCategory {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(nullable = false)
