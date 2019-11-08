@@ -13,7 +13,7 @@
 <!--            <img th:src="@{'http://lorempixel.com/400/200/city?id=' + ${post.id}}" class="card-img-top" alt="..." />-->
             <div class="card-body">
                 <h5 class="card-title" th:text="${post.title}"></h5>
-                <p class="card-text" th:text="${post.description}"></p>
+                <p class="card-text" th:text="${post.body}"></p>
                 <a th:href="@{/posts/{id}(id=${post.id})}" class="btn btn-primary">Show</a>
                 <a th:href="@{/posts/{id}/edit(id=${post.id})}" class="btn btn-warning">Edit</a>
             </div>

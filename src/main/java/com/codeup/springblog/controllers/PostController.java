@@ -59,11 +59,11 @@ public class PostController {
     @PostMapping("/posts/{id}/edit")
     public String update(@PathVariable long id,
                          @RequestParam(name = "title") String title,
-                         @RequestParam(name = "description") String description,
+                         @RequestParam(name = "body") String body,
                          Model viewModel) {
         Post postToBeUpdated = postDao.getOne(id);
         postToBeUpdated.setTitle(title);
-        postToBeUpdated.setBody(description);
+        postToBeUpdated.setBody(body);
         postDao.save(postToBeUpdated);
         return "redirect:/posts/" + postToBeUpdated.getId();
     }
