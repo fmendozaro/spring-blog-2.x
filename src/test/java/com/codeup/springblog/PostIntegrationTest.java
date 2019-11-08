@@ -103,7 +103,7 @@ public class PostIntegrationTest {
     }
 
     @Test
-    public void testAdsIndex() throws Exception {
+    public void testPostsIndex() throws Exception {
         Post existingPost = postDao.findAll().get(0);
 
         this.mvc.perform(get("/posts"))
@@ -112,5 +112,18 @@ public class PostIntegrationTest {
                 .andExpect(content().string(containsString("Latest Posts")))
                 // Test the dynamic content of the page
                 .andExpect(content().string(containsString(existingPost.getTitle())));
+    }
+
+    @Test
+    public void testEditPost() throws Exception {
+
+        Post existingAd = postDao.findAll().get(0);
+
+        this.mvc.perform(
+                post("/posts/" + existingAd.getId() + "/edit").with(csrf())
+                        .session((MockHttpSession) httpSession)
+                        .param("title", "edited title")
+                        .param("body", "edited body"))
+                .andExpect(status().is3xxRedirection());
     }
 }
