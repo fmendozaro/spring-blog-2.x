@@ -10,8 +10,8 @@
     <form th:action="@{/posts/create}" th:method="post" th:object="${post}">
         Title:<input th:field="*{title}"/><br/>
         <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" />
-        Description<input th:field="*{description}"/><br/>
-        <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" />
+        Description<input th:field="*{body}"/><br/>
+        <p th:if="${#fields.hasErrors('description')}" th:errors="*{body}" />
         <button class="btn btn-info">Create</button>
     </form>
 </main>

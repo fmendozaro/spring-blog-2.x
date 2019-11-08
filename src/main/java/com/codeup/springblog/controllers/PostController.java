@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -64,7 +63,7 @@ public class PostController {
                          Model viewModel) {
         Post postToBeUpdated = postDao.getOne(id);
         postToBeUpdated.setTitle(title);
-        postToBeUpdated.setDescription(description);
+        postToBeUpdated.setBody(description);
         postDao.save(postToBeUpdated);
         return "redirect:/posts/" + postToBeUpdated.getId();
     }

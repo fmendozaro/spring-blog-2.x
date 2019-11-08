@@ -17,9 +17,9 @@ public class Post {
     @NotBlank(message = "Posts must have a title")
     private String title;
     @Size(min = 3, message = "A title must be at least 3 characters.")
-    @NotBlank(message = "Posts must have a description")
+    @NotBlank(message = "Posts must have a body")
     @Column(nullable = false, length = 100)
-    private String description;
+    private String body;
 
     @OneToOne
     private User user;
@@ -40,9 +40,9 @@ public class Post {
     }
 
     // Constructor for everything for the R of (CRUD)
-    public Post(long id, String title, String description, List<PostCategory> categories) {
+    public Post(long id, String title, String body, List<PostCategory> categories) {
         this.title = title;
-        this.description = description;
+        this.body = body;
         this.id = id;
         this.categories = categories;
     }
@@ -55,12 +55,12 @@ public class Post {
         this.title = title;
     }
 
-    public String getDescription() {
-        return description;
+    public String getBody() {
+        return body;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public long getId() {
